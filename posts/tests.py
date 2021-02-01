@@ -1,10 +1,13 @@
 from django.test import TestCase
-from django.contrib.auth.models import
+from django.contrib.auth.models import User
 from .models import Post
 # Create your tests here.
 
 
 class BlogTest(TestCase):
+    """
+    Test for Post Model
+    """
 
     @classmethod
     def setUpTestData(cls):
@@ -22,3 +25,12 @@ class BlogTest(TestCase):
             body='Blog Content...'
         )
         test_post.save()
+    
+    def test_blog_content(self):
+        post = Post.objects.get(id=1)
+        author = f'{post.author}'
+        title = f'{post.title}'
+        body = f'{post.body}'
+        self.assertEqual(author, "testuser1")
+        self.assertEqual(title, 'Blog title')
+        self.assertEqual(body, 'Blog Content...')
